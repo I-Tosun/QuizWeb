@@ -1,0 +1,22 @@
+.mainContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.category {
+    background-color: white;
+    border: 2px solid #000;
+    border-radius: 8px;
+    margin: 10px;
+    padding: 20px;
+    text-align: center;
+}

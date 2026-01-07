@@ -1,0 +1,20 @@
+footer {
+    font-family: 'Microsoft Sans Serif', sans-serif;
+    font-size: 10px;
+    letter-spacing: 1.88px;
+    color: #000000;
+    padding: 10px;
+    background-color: #E6D24C;
+    width: 100%;
+    position: relative;
+    bottom: 0;
+
+}
+
+
+
+footer a {
+    text-decoration: none;
+    color: inherit;
+    margin: 0 15px;
+}
