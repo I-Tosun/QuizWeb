@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import '../styles/Navbar.css';
+import logo from "../assets/logo.png";
+
 
 const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -7,10 +9,20 @@ const Navbar = () => {
     return (
         <nav className={'navbar'}>
             <div className='navbar_left'>
-              <span className='logo'>Quiz!</span>
+                <img
+                    src={logo}
+                    alt='Quiz logo'
+                    className={"navbar_logo"}
+                />
 
-              <div className='Menu'>
-                <button className='Menu' onClick={()=>setMenuOpen(!menuOpen)}>Menu</button>
+              <div className='menu'>
+                <button
+                    className='menu_text'
+                    onClick={()=>setMenuOpen(!menuOpen)}
+                >
+                    Menu <span className={'menu_arrow'}>▼</span>
+                </button>
+
                 {menuOpen && (
                     <ul className={'dropdown'}>
                       <li>Algemeen</li>
@@ -35,8 +47,9 @@ const Navbar = () => {
             />
 
             <div className='navbar_right'>
-                <span>Sign up</span>
-                <span>Login</span>
+                <button className={'nav-text'}>Sign up</button>
+                <button className={'nav-text'}>Login</button>
+
                 <select>
                     <option>NL</option>
                     <option>EN</option>

@@ -1,13 +1,16 @@
-import React from 'react';
-import '../styles/Header.css';
-
+import "../styles/Header.css";
 
 const Header = () => {
     return (
-        <header>
-            <h1>Welkom bij onze QuizWebsite!</h1>
-            <p  className={'subtext'}>Ben jij klaar om je kennis te testen?</p>
-            <p className={'subtext'}>Doe mee en leer nieuwe dingen!</p>
+        <header className="header">
+            <div className="header_container">
+                <h1>Welkom bij onze QuizWebsite!</h1>
+                <p>
+                    Ben jij klaar om je kennis te testen?
+                    <br />
+                    Doe mee, leer nieuwe dingen en test je kennis!
+                </p>
+            </div>
         </header>
     );
 };

@@ -1,19 +1,12 @@
-import React from 'react';
-import './styles/General.css';
-import Navbar from './components/Navbar';
-import Header from './components/Header';
-import QuizCard from './components/QuizCard.jsx';
-import Footer from './components/Footer';
+import Layout from "./layout/Layout.jsx";
+import Home from "./pages/Home.jsx";
 
-const App = () => {
+function App() {
     return (
-        <div id="root">
-            <Navbar />
-            <Header />
-            <QuizCard />
-            <Footer />
-        </div>
-    );
-};
+        <Layout>
+            <Home/>
+        </Layout>
+    )
+}
 
 export default App;

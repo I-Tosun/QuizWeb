@@ -1,30 +1,12 @@
-import React from 'react';
-import '../styles/QuizCard.css';
+import "../styles/QuizCard.css";
+import { Icon } from "@iconify/react";
 
-
-const QuizCard = () => {
-    const categories = [
-        { id: 1, name:'Algemeen'},
-        { id: 2, name:'Sport'},
-        { id: 3, name:'Muziek'},
-        { id: 4, name:'Film'},
-        { id: 5, name:'Eten & Drinken'},
-        { id: 6, name:'Georgrafie'},
-        { id: 7, name: 'Kunst'},
-        { id: 8, name:'Geschiedenis'}
-    ];
-
+const QuizCard = ({ title, icon, onClick }) => {
     return (
-        <main className={'QuizCard'}>
-            <h2>Dit is de hoofdinhoud van de app.</h2>
-            <div className='categories'>
-                {categories.map((category) => (
-                    <div className={category} key={category.id}>
-                        {category.name}
-                    </div>
-                ))}
-            </div>
-        </main>
+        <div className="quiz_card" onClick={onClick}>
+            <Icon icon={icon} className="quiz_icon" />
+            <h3 className="quiz_card_title">{title}</h3>
+        </div>
     );
 };
 
