@@ -110,10 +110,6 @@
 }
 
 /* TAAL SELECT */
-.language-selector a {
-    margin-left: 10px;
-}
-
 .nav-text {
     background: none;
     border: none;
@@ -132,12 +128,41 @@
     text-decoration: underline;
 }
 
-.language_select {
+/* TAAL SWITCH (NL / EN) */
+.language_switch {
     background: none;
-    border: 1px solid #000000;
-    padding: 4px 6px;
+    border: none;
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    font-family: "Microsoft Sans Serif", sans-serif;
+    font-size: 16px;
+    color: #000000;
+
+    cursor: pointer;
+    user-select: none;
 }
 
+.language_arrow {
+    font-size: 12px;
+    margin-left: 2px;
+}
+
+.language_switch:hover {
+    text-decoration: underline;
+}
+
+.language {
+    position: relative;
+}
+
+.language .dropdown{
+    right: 0;
+    left: auto;
+}
 /* TABLET */
 @media (max-width: 768px) {
     .navbar {

@@ -5,6 +5,8 @@ import logo from "../assets/logo.png";
 
 const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
+    const [languageOpen, setLanguageOpen] = useState(false);
+    const [language, setLanguage] = useState("NL");
 
     return (
         <nav className={'navbar'}>
@@ -25,6 +27,7 @@ const Navbar = () => {
 
                 {menuOpen && (
                     <ul className={'dropdown'}>
+                      <li>Home</li>
                       <li>Algemeen</li>
                       <li>Sport</li>
                       <li>Film</li>
@@ -49,13 +52,27 @@ const Navbar = () => {
             <div className='navbar_right'>
                 <button className={'nav-text'}>Sign up</button>
                 <button className={'nav-text'}>Login</button>
+                <div className='language'>
+                    <button
+                        className='language_switch'
+                        onClick={()=>setLanguageOpen(!languageOpen)}
+                    >
+                        {language}
+                        <span className={'language_arrow'}>▼</span>
+                    </button>
 
-                <select>
-                    <option>NL</option>
-                    <option>EN</option>
-                </select>
+                    {languageOpen && (
+                        <ul className={'dropdown'}>
+                            <li onClick={()=> {setLanguage('NL'); setLanguageOpen(false); }}>
+                                Nederlands
+                            </li>
+                            <li onClick={()=> {setLanguage('EN'); setLanguageOpen(false); }}>
+                                English
+                            </li>
+                        </ul>
+                    )}
+                </div>
             </div>
-
         </nav>
     );
 };
