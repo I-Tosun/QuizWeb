@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import '../styles/Navbar.css';
 import logo from "../assets/logo.png";
+import { Link } from "react-router-dom";
+
 
 
 const Navbar = () => {
@@ -27,8 +29,18 @@ const Navbar = () => {
 
                 {menuOpen && (
                     <ul className={'dropdown'}>
-                      <li>Home</li>
-                      <li>Algemeen</li>
+                      <li>
+                          <Link to="/" onClick={() => setMenuOpen(false)}>
+                            Home
+                          </Link>
+                      </li>
+
+                      <li>
+                          <Link to="quiz?category=algemeen" onClick={() => setMenuOpen(false)}>
+                              Algemeen
+                          </Link>
+                      </li>
+
                       <li>Sport</li>
                       <li>Film</li>
                       <li>Eten & Drinken</li>

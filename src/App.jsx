@@ -8,6 +8,7 @@ import AboutUs from "./pages/AboutUs.jsx";
 import {useState} from "react";
 import SignUp from "./pages/SignUp.jsx";
 import Login from "./pages/Login.jsx";
+import ScoreList from "./pages/ScoreList.jsx";
 
 function App() {
     const [showLogin, setShowLogin] = useState(false);
@@ -18,18 +19,15 @@ function App() {
           {showLogin && <Login onClose={() => setShowLogin(false)} />}
           {showSignUp && <SignUp onClose={() => setShowSignUp(false)} />}
 
-          <div style = {{padding:'10px'}}>
-              <button onClick={()=>setShowLogin(true)}>Test Login</button>
-              <button onClick={()=>setShowSignUp(true)}>Test Sign Up</button>
-          </div>
 
         <Router>
             <Layout>
                 <Routes>
                     <Route path="/" element={<Home/>} />
-                    <Route path="/quiz" element={<Quiz/>} />
+                    <Route path="/quiz/:category" element={<Quiz/>} />
                     <Route path="/contact" element={<Contact/>} />
                     <Route path="/about" element={<AboutUs/>} />
+                    <Route path="/scores" element={<ScoreList />} />
                 </Routes>
             </Layout>
         </Router>
