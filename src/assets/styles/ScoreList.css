@@ -1,0 +1,109 @@
+/* HEADER  */
+.score_header {
+    background-color: #172FC6;
+    color: #ffffff;
+    padding: 6rem 0;
+}
+
+.score_header_inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.score_header_inner h1 {
+    font-size: 40px;
+    margin-bottom: 12px;
+}
+
+.score_header_inner p {
+    font-size: 16px;
+    opacity: 0.9;
+}
+
+/* ===== PAGINA LAYOUT ===== */
+.score_page {
+    min-height: calc(100vh - 160px);
+    padding: 40px;
+    background-color: #EFE7A0;
+
+    display: flex;
+    justify-content: center;
+}
+
+.score_container {
+    width: 100%;
+    max-width: 1100px;
+    background-color: #D9D9D9;
+    padding: 30px;
+    border-radius: 10px;
+
+    font-family: "Microsoft Sans Serif", sans-serif;
+    color: #000;
+}
+
+/* ===== TABEL ===== */
+.score_table {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.score_table_header,
+.score_row {
+    display: grid;
+    grid-template-columns: 60px 1fr 100px 100px;
+    align-items: center;
+    padding: 12px 16px;
+}
+
+.score_table_header {
+    background-color: #9CB35B;
+    color: #ffffff;
+    font-weight: bold;
+    border-radius: 6px;
+}
+
+.score_row {
+    background-color: #ECECDC;
+    border-radius: 6px;
+}
+
+.score_row:nth-child(even) {
+    background-color: #E1E1D0;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 600px) {
+    .score_table_header {
+        display: none;
+    }
+
+    .score_row {
+        grid-template-columns: 1fr;
+        gap: 6px;
+    }
+
+    .score_row span {
+        font-size: 14px;
+    }
+
+    .score_row span::before {
+        font-weight: bold;
+        margin-right: 6px;
+    }
+
+    .score_row span:nth-child(1)::before {
+        content: "Pos: ";
+    }
+    .score_row span:nth-child(2)::before {
+        content: "Naam: ";
+    }
+    .score_row span:nth-child(3)::before {
+        content: "Punten: ";
+    }
+    .score_row span:nth-child(4)::before {
+        content: "Resultaat: ";
+    }
+}
