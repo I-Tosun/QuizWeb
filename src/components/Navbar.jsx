@@ -1,90 +1,145 @@
-import { useState } from 'react';
-import '../styles/Navbar.css';
-import logo from "../assets/logo.png";
+import { useState } from "react";
+import "../assets/styles/Navbar.css";
+import logo from "../assets/images/logo.png";
 import { Link } from "react-router-dom";
 
+import { menuItems } from "../helpers/menuItems";
+import { languages } from "../helpers/languages";
 
+import { getToken, logoutUser, getUserFromToken } from "../services/authService";
 
-const Navbar = () => {
+const Navbar = ({ openLogin, openSignUp }) => {
+
     const [menuOpen, setMenuOpen] = useState(false);
     const [languageOpen, setLanguageOpen] = useState(false);
     const [language, setLanguage] = useState("NL");
 
+    const token = getToken();
+    const username = getUserFromToken();
+
     return (
-        <nav className={'navbar'}>
-            <div className='navbar_left'>
+        <nav className="navbar">
+
+            <div className="navbar_left">
+
                 <img
                     src={logo}
-                    alt='Quiz logo'
-                    className={"navbar_logo"}
+                    alt="Quiz logo"
+                    className="navbar_logo"
                 />
 
-              <div className='menu'>
-                <button
-                    className='menu_text'
-                    onClick={()=>setMenuOpen(!menuOpen)}
-                >
-                    Menu <span className={'menu_arrow'}>▼</span>
-                </button>
+                <div className="menu">
 
-                {menuOpen && (
-                    <ul className={'dropdown'}>
-                      <li>
-                          <Link to="/" onClick={() => setMenuOpen(false)}>
-                            Home
-                          </Link>
-                      </li>
+                    <button
+                        className="menu_text"
+                        onClick={() => setMenuOpen(!menuOpen)}
+                    >
+                        Menu <span className="menu_arrow">▼</span>
+                    </button>
 
-                      <li>
-                          <Link to="quiz?category=algemeen" onClick={() => setMenuOpen(false)}>
-                              Algemeen
-                          </Link>
-                      </li>
+                    {menuOpen && (
+                        <ul className="dropdown">
 
-                      <li>Sport</li>
-                      <li>Film</li>
-                      <li>Eten & Drinken</li>
-                      <li>Muziek</li>
-                      <li>Geografie</li>
-                      <li>Kunst</li>
-                      <li>Geschiedenis</li>
-                      <li>Scorelijst</li>
-                      <li>Contact</li>
-                    </ul>
-                )}
-              </div>
+                            {menuItems.map((item) => (
+                                <li key={item.path}>
+                                    <Link
+                                        to={item.path}
+                                        onClick={() => setMenuOpen(false)}
+                                    >
+                                        {item.name}
+                                    </Link>
+                                </li>
+                            ))}
+
+                        </ul>
+                    )}
+
+                </div>
+
             </div>
 
+
             <input
-                type='text'
-                className='search'
-                placeholder='Search quizzes'
+                type="text"
+                className="search"
+                placeholder="Search quizzes"
             />
 
-            <div className='navbar_right'>
-                <button className={'nav-text'}>Sign up</button>
-                <button className={'nav-text'}>Login</button>
-                <div className='language'>
+
+            <div className="navbar_right">
+
+                {!token ? (
+
+                    <>
+                        <button
+                            className="nav-text"
+                            onClick={openSignUp}
+                        >
+                            Sign up
+                        </button>
+
+                        <button
+                            className="nav-text"
+                            onClick={openLogin}
+                        >
+                            Login
+                        </button>
+                    </>
+
+                ) : (
+
+                    <div className="user_section">
+
+                        <span className="username">
+                            Hello {username}
+                        </span>
+
+                        <button
+                            className="nav-text"
+                            onClick={() => {
+                                logoutUser();
+                                window.location.reload();
+                            }}
+                        >
+                            Logout
+                        </button>
+
+                    </div>
+
+                )}
+
+                <div className="language">
+
                     <button
-                        className='language_switch'
-                        onClick={()=>setLanguageOpen(!languageOpen)}
+                        className="language_switch"
+                        onClick={() => setLanguageOpen(!languageOpen)}
                     >
                         {language}
-                        <span className={'language_arrow'}>▼</span>
+                        <span className="language_arrow">▼</span>
                     </button>
 
                     {languageOpen && (
-                        <ul className={'dropdown'}>
-                            <li onClick={()=> {setLanguage('NL'); setLanguageOpen(false); }}>
-                                Nederlands
-                            </li>
-                            <li onClick={()=> {setLanguage('EN'); setLanguageOpen(false); }}>
-                                English
-                            </li>
+                        <ul className="dropdown">
+
+                            {languages.map((lang) => (
+                                <li
+                                    key={lang.code}
+                                    onClick={() => {
+                                        setLanguage(lang.code);
+                                        setLanguageOpen(false);
+                                    }}
+                                >
+                                    {lang.label}
+                                </li>
+                            ))}
+
                         </ul>
                     )}
+
                 </div>
+
             </div>
+
         </nav>
     );
 };

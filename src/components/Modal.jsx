@@ -1,4 +1,4 @@
-import "../styles/Modal.css";
+import "../assets/styles/Modal.css";
 
 const Modal = ({ title, onClose, children }) => {
     return (

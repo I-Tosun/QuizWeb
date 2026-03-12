@@ -1,23 +1,69 @@
+import { useState } from "react";
 import Modal from "../components/Modal";
-import "../styles/Auth.css";
+import "../assets/styles/Auth.css";
+import { loginUser } from "../services/authService";
 
 const Login = ({ onClose }) => {
+
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+
+            await loginUser(username, password);
+
+            setErrorMessage("");
+
+            alert("Login succesvol");
+
+            onClose();
+
+        } catch (error) {
+
+            console.error(error);
+
+            setErrorMessage("Login mislukt. Controleer username en wachtwoord.");
+
+        }
+    };
+
     return (
         <Modal title="Login to QuizWeb" onClose={onClose}>
-            <form className="auth_form">
-                <label>Screen name or E-mail</label>
-                <input type="text" />
+
+            <form className="auth_form" onSubmit={handleSubmit}>
+
+                <label>Username</label>
+
+                <input
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                />
 
                 <label>Password</label>
-                <input type="password" />
 
-                <button className="primary_btn">Login</button>
+                <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
 
-                <div className="auth_links">
-                    <button type="button" className="link_btn">Forgot Password</button>
-                    <button type="button" className="link_btn">Create Account</button>
-                </div>
+                {errorMessage && (
+                    <p className="auth_error">
+                        {errorMessage}
+                    </p>
+                )}
+
+                <button className="primary_btn">
+                    Login
+                </button>
+
             </form>
+
         </Modal>
     );
 };

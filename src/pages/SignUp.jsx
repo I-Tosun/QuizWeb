@@ -1,5 +1,5 @@
 import Modal from "../components/Modal";
-import "../styles/Auth.css";
+import "../assets/styles/Auth.css";
 
 const SignUp = ({ onClose }) => {
     return (

@@ -1,60 +1,53 @@
-import "../styles/ScoreList.css";
+import "../assets/styles/ScoreList.css";
+import { getScores } from "../services/scoreService";
 
 const ScoreList = () => {
+
+    // state wordt direct gevuld (geen useEffect meer nodig)
+    const scores = getScores()
+        .slice() // kopie maken
+        .sort((a, b) => b.score - a.score);
+
     return (
-        <>
-            {/* 🔵 FULL WIDTH HEADER */}
-            <header className="score_header">
-                <div className="score_header_inner">
-                    <h1>Scorelijst</h1>
-                    <p>Bekijk de beste resultaten van onze quizzen</p>
-                </div>
-            </header>
+        <section className="score_page">
 
-            {/* ⬜ CONTENT */}
-            <section className="score_page">
-                <div className="score_container">
-                    <div className="score_table">
+            <div className="score_header">
+                <h1>Scorelijst</h1>
+                <p>Bekijk de beste resultaten van onze quizzen</p>
+            </div>
 
-                        <div className="score_table_header">
-                            <span>Pos.</span>
-                            <span>Naam</span>
-                            <span>Punten</span>
-                            <span>Resultaat</span>
-                        </div>
+            <div className="score_container">
 
-                        <div className="score_row">
-                            <span>1</span>
-                            <span>Ismail Tosun</span>
-                            <span>54</span>
-                            <span>64%</span>
-                        </div>
-
-                        <div className="score_row">
-                            <span>2</span>
-                            <span>Yunus</span>
-                            <span>59</span>
-                            <span>59%</span>
-                        </div>
-
-                        <div className="score_row">
-                            <span>3</span>
-                            <span>Dina</span>
-                            <span>46</span>
-                            <span>55%</span>
-                        </div>
-
-                        <div className="score_row">
-                            <span>4</span>
-                            <span>Amal</span>
-                            <span>41</span>
-                            <span>49%</span>
-                        </div>
-
+                <div className="score_table">
+                    <div className="score_header_row">
+                        <span>Pos.</span>
+                        <span>Naam</span>
+                        <span>Categorie</span>
+                        <span>Punten</span>
+                        <span>%</span>
+                        <span>Datum</span>
                     </div>
+
+                    {scores.length === 0 && (
+                        <p style={{textAlign:"center"}}>
+                            Nog geen scores opgeslagen
+                        </p>
+                    )}
+
+                    {scores.map((s, index) => (
+                        <div className="score_row" key={index}>
+                            <span>{index + 1}</span>
+                            <span>{s.name}</span>
+                            <span>{s.category}</span>
+                            <span>{s.score}/{s.total}</span>
+                            <span>{s.percentage}%</span>
+                            <span>{s.date}</span>
+                        </div>
+                    ))}
                 </div>
-            </section>
-        </>
+
+            </div>
+        </section>
     );
 };
 

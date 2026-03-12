@@ -1,5 +1,5 @@
 import QuizCard from "../components/QuizCard";
-import "../styles/Home.css";
+import "../assets/styles/Home.css";
 import { useNavigate } from "react-router-dom";
 
 const categories = [

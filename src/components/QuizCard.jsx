@@ -1,4 +1,4 @@
-import "../styles/QuizCard.css";
+import "../assets/styles/QuizCard.css";
 import { Icon } from "@iconify/react";
 
 const QuizCard = ({ title, icon, onClick }) => {
