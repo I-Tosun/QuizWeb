@@ -1,11 +1,11 @@
 import "../assets/styles/ScoreList.css";
 import { getScores } from "../services/scoreService";
+import ScoreTable from "../components/ScoreTable";
 
 const ScoreList = () => {
 
-    // state wordt direct gevuld (geen useEffect meer nodig)
     const scores = getScores()
-        .slice() // kopie maken
+        .slice()
         .sort((a, b) => b.score - a.score);
 
     return (
@@ -18,35 +18,16 @@ const ScoreList = () => {
 
             <div className="score_container">
 
-                <div className="score_table">
-                    <div className="score_header_row">
-                        <span>Pos.</span>
-                        <span>Naam</span>
-                        <span>Categorie</span>
-                        <span>Punten</span>
-                        <span>%</span>
-                        <span>Datum</span>
-                    </div>
-
-                    {scores.length === 0 && (
-                        <p style={{textAlign:"center"}}>
-                            Nog geen scores opgeslagen
-                        </p>
-                    )}
-
-                    {scores.map((s, index) => (
-                        <div className="score_row" key={index}>
-                            <span>{index + 1}</span>
-                            <span>{s.name}</span>
-                            <span>{s.category}</span>
-                            <span>{s.score}/{s.total}</span>
-                            <span>{s.percentage}%</span>
-                            <span>{s.date}</span>
-                        </div>
-                    ))}
-                </div>
+                {scores.length === 0 ? (
+                    <p style={{ textAlign: "center" }}>
+                        Nog geen scores opgeslagen
+                    </p>
+                ) : (
+                    <ScoreTable scores={scores} />
+                )}
 
             </div>
+
         </section>
     );
 };

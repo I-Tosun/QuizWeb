@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { menuItems } from "../helpers/menuItems";
 import { languages } from "../helpers/languages";
 
-import { getToken, logoutUser, getUserFromToken } from "../services/authService";
+import { getToken, logoutUser, getUserFromToken, isAdmin } from "../services/authService";
 
 const Navbar = ({ openLogin, openSignUp }) => {
 
@@ -50,6 +50,18 @@ const Navbar = ({ openLogin, openSignUp }) => {
                                     </Link>
                                 </li>
                             ))}
+
+                            {/* ADMIN LINK */}
+                            {isAdmin() && (
+                                <li>
+                                    <Link
+                                        to="/admin"
+                                        onClick={() => setMenuOpen(false)}
+                                    >
+                                        Admin
+                                    </Link>
+                                </li>
+                            )}
 
                         </ul>
                     )}

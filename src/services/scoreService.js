@@ -1,21 +1,25 @@
-const STORAGE_KEY = "quiz_scores";
-
-// scores ophalen
 export const getScores = () => {
-    const scores = localStorage.getItem(STORAGE_KEY);
+    const scores = localStorage.getItem("scores");
     return scores ? JSON.parse(scores) : [];
 };
 
-// score opslaan
-export const saveScore = (newScore) => {
-    const existingScores = getScores();
+export const saveScore = (score) => {
 
-    existingScores.push(newScore);
+    const scores = getScores();
 
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(existingScores));
+    scores.push(score);
+
+    localStorage.setItem("scores", JSON.stringify(scores));
 };
 
-// alles wissen (handig voor testen)
-export const clearScores = () => {
-    localStorage.removeItem(STORAGE_KEY);
+
+export const deleteScore = (index) => {
+
+    const scores = getScores();
+
+    const updatedScores = scores.filter((_, i) => i !== index);
+
+    localStorage.setItem("scores", JSON.stringify(updatedScores));
+
+    return updatedScores;
 };
