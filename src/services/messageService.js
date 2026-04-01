@@ -1,3 +1,4 @@
+//Message service - manage service via Novi Dynamic API
 const API_URL = "/api";
 const PROJECT_ID = import.meta.env.VITE_PROJECT_ID;
 
