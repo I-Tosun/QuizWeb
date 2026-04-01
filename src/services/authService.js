@@ -1,3 +1,4 @@
+//API Configuration
 const API_URL = "/api";
 const PROJECT_ID = import.meta.env.VITE_PROJECT_ID;
 
