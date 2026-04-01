@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import "../../assets/styles/Admin.css";
 
+//Overview page for managing user, scores and messages
 const AdminDashboard = () => {
 
     return (
