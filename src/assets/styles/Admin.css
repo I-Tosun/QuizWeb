@@ -1,0 +1,188 @@
+/* Admin Page Layout */
+.admin_page {
+    min-height: calc(100vh - 160px);
+    padding: 40px;
+    background-color: #EFE7A0;
+
+    display: flex;
+    justify-content: center;
+}
+
+/* Container */
+.admin_container {
+    width: 100%;
+    max-width: 1100px;
+    background-color: #D9D9D9;
+    padding: 40px;
+    border-radius: 10px;
+
+    font-family: "Microsoft Sans Serif", sans-serif;
+    color: #000;
+}
+
+/* Header */
+.admin_header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.admin_header h1 {
+    font-size: 40px;
+    margin-bottom: 8px;
+}
+
+.admin_header p {
+    font-size: 18px;
+    opacity: 0.8;
+}
+
+/* Dashboard Grid */
+.admin_dashboard_grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+/* Dashboard Cards */
+.admin_card {
+    background-color: #ECECDC;
+    padding: 25px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #000;
+    transition: 0.2s;
+}
+
+.admin_card:hover {
+    background-color: #dcdcc7;
+    transform: translateY(-3px);
+}
+
+.admin_card h2 {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.admin_card p {
+    font-size: 15px;
+    opacity: 0.85;
+}
+
+/* Admin table */
+.admin_table {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Users tabel grid */
+.admin_table.users_grid .admin_table_header,
+.admin_table.users_grid .admin_table_row {
+    display: grid;
+    grid-template-columns: 80px 2fr 1fr 100px;
+    align-items: center;
+    padding: 12px 16px;
+}
+
+/* Messages table grid */
+.admin_table.messages_grid .admin_table_header,
+.admin_table.messages_grid .admin_table_row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr 1fr 100px;
+    align-items: center;
+    padding: 12px 16px;
+}
+
+/* Header row */
+.admin_table_header {
+    background-color: #172FC6;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 6px;
+}
+
+/* Data rows */
+.admin_table_row {
+    background-color: #ECECDC;
+    border-radius: 6px;
+}
+
+.admin_table_row:hover {
+    background-color: #dcdcc7;
+}
+
+.admin_table_row:nth-child(even) {
+    background-color: #E1E1D0;
+}
+
+/* Delete btn */
+.admin_delete {
+    background-color: #d33;
+    color: #fff;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    justify-self: center;
+}
+
+.admin_delete:hover {
+    background-color: #b22222;
+}
+
+/* Admin back */
+.admin_back {
+    margin-top: 30px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.admin_back_btn {
+    background-color: #172FC6;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.admin_back_btn:hover {
+    background-color: #0f1fa3;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .admin_page {
+        padding: 24px;
+    }
+
+    .admin_container {
+        padding: 24px;
+    }
+
+    .admin_header h1 {
+        font-size: 30px;
+    }
+}
+
+/* Mobile */
+
+@media (max-width: 700px) {
+
+    .admin_table_header {
+        display: none;
+    }
+
+    .admin_row {
+        grid-template-columns: 1fr;
+        gap: 6px;
+        padding: 12px;
+    }
+
+    .admin_row span::before {
+        font-weight: bold;
+        margin-right: 6px;
+    }
+
+}

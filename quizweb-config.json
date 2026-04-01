@@ -1,0 +1,54 @@
+{
+  "collections": [
+    {
+      "name": "scores",
+      "fields": [
+        { "name": "name", "type": "string", "required": true },
+        { "name": "category", "type": "string", "required": true },
+        { "name": "score", "type": "number", "required": true },
+        { "name": "total", "type": "number", "required": true },
+        { "name": "percentage", "type": "number", "required": true },
+        { "name": "date", "type": "string", "required": false }
+      ],
+      "permissions": {
+        "GET": ["anonymous", "user", "admin"],
+        "POST": ["anonymous", "user", "admin"],
+        "PUT": ["admin"],
+        "PATCH": ["admin"],
+        "DELETE": ["admin"]
+      }
+    },
+    {
+      "name": "messages",
+      "fields": [
+        { "name": "name", "type": "string", "required": true },
+        { "name": "email", "type": "string", "required": true },
+        { "name": "message", "type": "string", "required": true },
+        { "name": "date", "type": "string", "required": false }
+      ],
+      "permissions": {
+        "GET": ["admin"],
+        "POST": ["anonymous", "user", "admin"],
+        "PUT": ["admin"],
+        "PATCH": ["admin"],
+        "DELETE": ["admin"]
+      }
+    }
+  ],
+  "users": [
+    {
+      "email": "admin@quizweb.nl",
+      "password": "admin123",
+      "roles": ["admin"]
+    },
+    {
+      "email": "user@quizweb.nl",
+      "password": "user123",
+      "roles": ["user"]
+    }
+  ],
+  "data": {
+    "scores": [],
+    "messages": []
+  }
+}

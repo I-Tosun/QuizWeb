@@ -1,0 +1,53 @@
+/* Form */
+.auth_form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.auth_form label {
+    font-size: 14px;
+    color: #000;
+}
+
+.auth_form input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    background: #fff;
+    color: #000;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.auth_form input::placeholder {
+    color: #666;
+}
+
+/* Button */
+.primary_btn {
+    width: 100%;
+    margin-top: 15px;
+    padding: 12px;
+    background-color: #172FC6;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.primary_btn:hover {
+    background-color: #0f1fa3;
+}
+
+/* Error */
+.auth_error {
+    color: #d33;
+    font-size: 14px;
+    margin-top: 10px;
+    font-weight: 500;
+}

@@ -1,0 +1,76 @@
+export const languages = [
+    { code: "NL", label: "Nederlands" },
+    { code: "EN", label: "English" }
+];
+
+export const translations = {
+
+    NL: {
+        welcomeTitle: "Welkom bij onze QuizWebsite!",
+        welcomeSubtitle: "Ben jij klaar om je kennis te testen?",
+        welcomeSubtitle2:"Doe mee, leer nieuwe dingen en test je kennis!",
+        ScoresListTitle:"Scorelijst",
+        scoreListText:"Beste quiz resultaten",
+        name:"Naam",
+        point:"Punten",
+        category:"Categorie",
+        date:"Datum",
+        menu: "Menu",
+        search: "Zoek quiz",
+        login: "Login",
+        signup: "Registreren",
+        logout: "Uitloggen",
+        hello: "Hallo",
+        home: "Home",
+        general: "Algemeen",
+        sport: "Sport",
+        film: "Film",
+        food: "Eten & Drinken",
+        music: "Muziek",
+        geography: "Geografie",
+        art: "Kunst",
+        history: "Geschiedenis",
+        scores: "Scorelijst",
+        contact: "Contact",
+        quizFinished: "Quiz afgerond",
+        yourScore: "Je score",
+        percentage: "Percentage",
+        viewScores: "Bekijk scorelijst",
+        newQuiz: "Nieuwe quiz"
+    },
+
+    EN: {
+        welcomeTitle: "Welcome to our Quiz Website!",
+        welcomeSubtitle: "Ready to test your knowledge?",
+        welcomeSubtitle2: "Join in, learn new things and test your knowledge!",
+        ScoresListTitle:"Scorelist",
+        scoreListText:"Best quiz results",
+        name:"Name",
+        point:"Points",
+        category:"Category",
+        date:"Date",
+        menu: "Menu",
+        search: "Search quiz",
+        login: "Login",
+        signup: "Sign up",
+        logout: "Logout",
+        hello: "Hello",
+        home: "Home",
+        general: "General",
+        sport: "Sport",
+        film: "Film",
+        food: "Food & Drinks",
+        music: "Music",
+        geography: "Geography",
+        art: "Art",
+        history: "History",
+        scores: "Score list",
+        contact: "Contact",
+        quizFinished: "Quiz finished",
+        yourScore: "Your score",
+        percentage: "Percentage",
+        viewScores: "View scores",
+        newQuiz: "New quiz"
+    }
+
+};
