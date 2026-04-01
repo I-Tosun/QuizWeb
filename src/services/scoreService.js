@@ -1,3 +1,4 @@
+//Score service manage quiz scores via Novi Dynamic api
 const API_URL = "/api";
 const PROJECT_ID = import.meta.env.VITE_PROJECT_ID;
 
