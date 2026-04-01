@@ -2,6 +2,7 @@ import { useState } from "react";
 import "../assets/styles/Contact.css";
 import { sendMessage } from "../services/messageService";
 
+//Contact form linked to the Novi Dynamic API
 const Contact = () => {
 
     const [name, setName] = useState("");

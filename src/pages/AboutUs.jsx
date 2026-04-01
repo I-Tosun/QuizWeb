@@ -1,5 +1,6 @@
 import "../assets/styles/AboutUs.css";
 
+// Info page about the quizweb
 const AboutUs = () => {
     return (
         <section className="about_page">

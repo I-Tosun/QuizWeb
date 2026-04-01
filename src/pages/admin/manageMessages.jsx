@@ -1,9 +1,9 @@
-// Management of contact messages via novi dynamic app
-
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../../assets/styles/Admin.css";
 import { getMessages, deleteMessage } from "../../services/messageService";
+
+// Management of contact messages via novi dynamic app
 
 const ManageMessages = () => {
 
