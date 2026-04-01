@@ -1,5 +1,6 @@
 import "../assets/styles/AboutUs.css";
 
+//Privacy policy page of quizweb
 const PrivacyPolicy = () => {
     return (
         <section className="about_page">
