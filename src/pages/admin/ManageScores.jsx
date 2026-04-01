@@ -1,3 +1,5 @@
+//// Management of scores via Novi Dynamic API
+
 import { Link } from "react-router-dom";
 import "../../assets/styles/Admin.css";
 import { deleteScore } from "../../services/scoreService";
