@@ -1,3 +1,5 @@
+// Management of users via Novi Dynamic API
+
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../../assets/styles/Admin.css";
