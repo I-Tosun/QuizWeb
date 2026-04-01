@@ -1,5 +1,6 @@
 import { t } from "../helpers/translate";
 
+//Score table reusable component for displaying scores
 const ScoreTable = ({ scores, showDelete = false, onDelete }) => {
 
     const tableClass = showDelete

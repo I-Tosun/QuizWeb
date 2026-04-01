@@ -18,6 +18,7 @@ import ManageScores from "./pages/admin/ManageScores.jsx";
 import ManageUsers from "./pages/admin/ManageUsers.jsx";
 import ManageMessages from "./pages/admin/ManageMessages.jsx";
 
+//Main component with routing and authentication modals
 function App() {
 
     const [showLogin, setShowLogin] = useState(false);

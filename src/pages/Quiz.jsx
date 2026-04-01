@@ -9,6 +9,7 @@ import { getUserFromToken } from "../services/authService";
 import { translateCategory } from "../helpers/categories";
 import { t } from "../helpers/translate";
 
+//Interactive quizpage with timer, answers and score storage
 const Quiz = () => {
 
     const { category } = useParams();
