@@ -1,5 +1,3 @@
-// Management of users via Novi Dynamic API
-
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../../assets/styles/Admin.css";
@@ -8,7 +6,7 @@ import { getToken } from "../../services/authService";
 /**
  * @typedef {{ id: number, email: string, roles: string[] }} User
  */
-
+// Management of users via Novi Dynamic API
 const API_URL = "/api";
 const PROJECT_ID = import.meta.env.VITE_PROJECT_ID;
 
