@@ -4,6 +4,7 @@ import ScoreTable from "../components/ScoreTable";
 import { t } from "../helpers/translate";
 import useScores from "../hooks/useScores";
 
+//Score list shows scores sorted bij high score
 const ScoreList = () => {
 
     const { scores, loading, error } = useScores();
