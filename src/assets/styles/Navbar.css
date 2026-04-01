@@ -1,4 +1,4 @@
-/*Navbar */
+/* Navbar */
 .navbar {
     display: flex;
     align-items: center;
@@ -88,7 +88,7 @@
     width: 100%;
 }
 
-/* Search (dekstop) */
+/* Search  */
 .search {
     flex: 1;
     max-width: 400px;
@@ -180,38 +180,45 @@
     .navbar {
         flex-direction: row;
         flex-wrap: nowrap;
-        padding: 8px 12px;
-        gap: 8px;
+        padding: 8px 8px;
+        gap: 4px;
+    }
+
+    .navbar_left {
+        gap: 6px;
     }
 
     .navbar_logo {
-        height: 32px;
+        height: 28px;
     }
 
     .menu_text {
-        font-size: 14px;
+        font-size: 13px;
     }
 
     /* Searchbar */
     .search {
         display: block;
         width: 90px;
-        padding: 5px 8px;
-        font-size: 12px;
+        padding: 4px 6px;
+        font-size: 11px;
         border-radius: 6px;
         margin:0;
     }
 
     .navbar_right {
-        gap: 6px;
+        gap: 4px;
+        justify-content: end;
+        flex: 2;
     }
 
     .nav-text {
-        font-size: 13px;
+        font-size: 12px;
+        padding: 0 2px;
     }
 
     .language_switch {
-        font-size: 13px;
+        font-size: 12px;
     }
 
     /* Hide Hello mobile */
