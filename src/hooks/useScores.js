@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getScores } from "../services/scoreService";
 
+//Custom hook for retrieving and sorting quiz scores
 const useScores = () => {
 
     const [scores, setScores] = useState([]);
