@@ -8,13 +8,13 @@ Quizweb is een interactieve quiz website waar gebruikers kennis kunnen testen op
 
 ## 📸 Screenshots
 ### 1. Home
-![Home pagina](./screenshots/schreenshot%20Home.png)
+![Home pagina](./screenshots/home.png)
 ### 2. Quiz
-![Quiz pagina](./screenshots/screenshot%20quiz.png)
+![Quiz pagina](./screenshots/quiz.png)
 ### 3. Quiz finish
-![Quiz finish pagina](./screenshots/screenshot%20quiz%20finish.png)
+![Quiz finish pagina](./screenshots/quiz-finish.png)
 ### 4. Scorelist 
-![Quiz scorelist pagina](./screenshots/screenshot%20scorelist.png)
+![Quiz scorelist pagina](./screenshots/scorelist.png)
 
 ## Functionaliteiten
 
