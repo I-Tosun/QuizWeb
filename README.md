@@ -6,6 +6,16 @@ Interactieve quiz website gebouwd met React & Vite | Interactive quiz website bu
 
 Quizweb is een interactieve quiz website waar gebruikers kennis kunnen testen op verschillende categorieën zoals Algemeen, Sport, Film, Muziek, Geografie, Kunst en Geschiedenis. De applicatie is gebouwd als eindopdracht voor de Frontend opleiding bij NOVI Hogeschool.
 
+## 📸 Screenshots
+### 1. Home
+![Home pagina](./screenshots/schreenshot%20Home.png)
+### 2. Quiz
+![Quiz pagina](./screenshots/screenshot%20quiz.png)
+### 3. Quiz finish
+![Quiz finish pagina](./screenshots/screenshot%20quiz%20finish.png)
+### 4. Scorelist 
+![Quiz scorelist pagina](./screenshots/screenshot%20scorelist.png)
+
 ## Functionaliteiten
 
 - 🎮 Quiz spelen in verschillende categorieën
