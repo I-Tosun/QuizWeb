@@ -46,7 +46,7 @@ Zorg dat de volgende software geïnstalleerd is op je computer voordat je begint
 - [Git](https://git-scm.com/) — download via git-scm.com
 - Een code editor zoals [WebStorm](https://www.jetbrains.com/webstorm/) of [VS Code](https://code.visualstudio.com/)
 
-Controleer of Node.js correct is geïnstalleerd:
+Controleer installatie:
 ```bash
 node -v
 npm -v
@@ -61,57 +61,11 @@ npm -v
 
 ## Installatie
 
-1. **Clone de repository**
-```bash
-git clone https://github.com/I-Tosun/quizweb.git
-cd quizweb
-```
-
-2. **Installeer dependencies**
-```bash
-npm install
-```
-
-3. **Maak een `.env` bestand aan** in de root van het project:
-```
-VITE_PROJECT_ID=jouw-project-id
-VITE_TRIVIA_TOKEN=jouw-trivia-token
-```
-
-4. **Start de applicatie**
-```bash
-npm run dev
-```
-
-5. **Open de applicatie** in je browser op:
-```
-http://localhost:5173
-```
-
-## NOVI Dynamic API Configuratie
-
-De applicatie maakt gebruik van de NOVI Dynamic API voor gebruikersbeheer, scores en berichten.
-
-1. Ga naar de [NOVI Dynamic API pagina](https://novi-backend-api-wgsgz.ondigitalocean.app)
-2. Registreer met je NOVI studentemail
-3. Upload het `quizweb-config.json` bestand uit de root van het project
-4. Kopieer je Project ID
-5. Voeg het toe aan je `.env` bestand:
-```
-VITE_PROJECT_ID=jouw-project-id
-```
-
-## Open Trivia API Configuratie
-
-De applicatie maakt gebruik van de Open Trivia API voor quizvragen.
-
-1. Ga naar [https://opentdb.com](https://opentdb.com)
-2. Genereer een API token
-3. Voeg het toe aan je `.env` bestand:
-```
-VITE_TRIVIA_TOKEN=jouw-trivia-token
-```
-
+1. Clone de repository
+2. Installeer dependencies: `npm install`
+3. Hernoem `.env.example` naar `.env`
+4. Start de applicatie: `npm run dev`
+5. Open `http://localhost:5173`
 ## Standaard accounts
 
 Na het uploaden van de `quizweb-config.json` zijn de volgende accounts beschikbaar:
