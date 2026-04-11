@@ -66,6 +66,8 @@ npm -v
 3. Hernoem `.env.example` naar `.env`
 4. Start de applicatie: `npm run dev`
 5. Open `http://localhost:5173`
+
+Na het hernoemen van .env.example naar .env is de applicatie direct klaar voor gebruik.
 ## Standaard accounts
 
 Na het uploaden van de `quizweb-config.json` zijn de volgende accounts beschikbaar:
