@@ -8,6 +8,7 @@ import { saveScore } from "../services/scoreService";
 import { getUserFromToken } from "../services/authService";
 import { translateCategory } from "../helpers/categories";
 import { t } from "../helpers/translate";
+import PrimaryButton from "../components/buttons/PrimaryButton.jsx";
 
 //Interactive quizpage with timer, answers and score storage
 const Quiz = () => {
@@ -158,12 +159,8 @@ const Quiz = () => {
                         <p>{t("percentage")}: {percentage}%</p>
 
                         <div className="quiz_finish_actions">
-                            <Link to="/scores" className="primary_btn">
-                                {t("viewScores")}
-                            </Link>
-                            <Link to="/" className="primary_btn restart_btn">
-                                {t("newQuiz")}
-                            </Link>
+                            <PrimaryButton to="/scores" label={t("viewScores")} />
+                            <PrimaryButton to="/" label={t("newQuiz")} className="restart_btn" />
                         </div>
 
                     </div>
