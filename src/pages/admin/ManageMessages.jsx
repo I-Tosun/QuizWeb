@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import "../../assets/styles/Admin.css";
 import { getMessages, deleteMessage } from "../../services/messageService";
+import DeleteButton from "../../components/buttons/DeleteButton.jsx";
+import BackButton from "../../components/buttons/BackButton.jsx";
 
 // Management of contact messages via novi dynamic app
 
@@ -71,22 +72,14 @@ const ManageMessages = () => {
                                 <span>{msg.email}</span>
                                 <span>{msg.message}</span>
                                 <span>{msg.date}</span>
-                                <button
-                                    className="admin_delete"
-                                    onClick={() => handleDelete(msg.id)}>
-                                    Delete
-                                </button>
+                                <DeleteButton onDelete={() => handleDelete(msg.id)} />
                             </div>
                         ))}
 
                     </div>
                 )}
 
-                <div className="admin_back">
-                    <Link to="/admin" className="admin_back_btn">
-                        ← Terug naar Dashboard
-                    </Link>
-                </div>
+                <BackButton />
 
             </div>
         </section>

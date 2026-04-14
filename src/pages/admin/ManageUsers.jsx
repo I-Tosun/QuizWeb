@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import "../../assets/styles/Admin.css";
 import { getToken } from "../../services/authService";
+import DeleteButton from "../../components/buttons/DeleteButton.jsx";
+import BackButton from "../../components/buttons/BackButton.jsx";
 
 /**
  * @typedef {{ id: number, email: string, roles: string[] }} User
@@ -103,11 +104,7 @@ const ManageUsers = () => {
                                     <span>{user.id}</span>
                                     <span>{user.email}</span>
                                     <span>{roleList}</span>
-                                    <button
-                                        className="admin_delete"
-                                        onClick={() => handleDelete(user.id)}>
-                                        Delete
-                                    </button>
+                                    <DeleteButton onDelete={() => handleDelete(user.id)}/>
                                 </div>
                             );
                         })}
@@ -115,11 +112,7 @@ const ManageUsers = () => {
                     </div>
                 )}
 
-                <div className="admin_back">
-                    <Link to="/admin" className="admin_back_btn">
-                        ← Terug naar Dashboard
-                    </Link>
-                </div>
+                <BackButton />
 
             </div>
         </section>

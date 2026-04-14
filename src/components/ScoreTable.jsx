@@ -1,4 +1,6 @@
 import { t } from "../helpers/translate";
+import DeleteButton from "./buttons/DeleteButton.jsx";
+
 
 //Score table reusable component for displaying scores
 const ScoreTable = ({ scores, showDelete = false, onDelete }) => {
@@ -40,11 +42,7 @@ const ScoreTable = ({ scores, showDelete = false, onDelete }) => {
 
                     {showDelete && (
                         <span className="action_cell">
-                            <button
-                                className="admin_delete"
-                                onClick={() => onDelete(s.id)}>
-                                Delete
-                            </button>
+                            <DeleteButton onDelete={() => onDelete(s.id)}/>
                         </span>
                     )}
                 </div>
