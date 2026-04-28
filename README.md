@@ -32,7 +32,7 @@ Quizweb is een interactieve quizwebsite waar gebruikers hun kennis kunnen testen
 
 ---
 
-## 📸 Screenshots
+## Screenshots
 ### 1. Home
 ![Home pagina](./screenshots/home.png)
 ### 2. Quiz
