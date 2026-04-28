@@ -1,4 +1,4 @@
-# Quizweb 🎯
+# # Quizweb – Interactive Quiz Application
 
 Interactieve quiz website gebouwd met React & Vite | Interactive quiz website built with React & Vite
 
@@ -46,14 +46,14 @@ Quizweb is een interactieve quizwebsite waar gebruikers hun kennis kunnen testen
 
 ## Functionaliteiten
 
-- 🎮 Quiz spelen in verschillende categorieën
-- ⏱️ Timer per vraag
-- 📊 Scorelijst met top 3 ranking
-- 🔐 Registreren en inloggen
-- 🌐 Meertalig (Nederlands / Engels)
-- 👤 Admin dashboard voor beheer van users, scores en berichten
-- 📬 Contactformulier
-- 📱 Responsive design (mobile, tablet, desktop)
+- Mogelijkheid om quizzen te spelen in verschillende categorieën
+- Timer per vraag voor extra uitdaging
+- Scorelijst met een top 3 ranking
+- Registratie- en loginfunctionaliteit
+- Meertalige ondersteuning (Nederlands en Engels)
+- Admin dashboard voor beheer van gebruikers, scores en berichten
+- Contactformulier voor gebruikersfeedback
+- Responsive design voor mobiel, tablet en desktop
 ---
 
 ## Technologieën en frameworks
