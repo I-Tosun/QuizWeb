@@ -7,7 +7,7 @@ import { translateCategory } from "../helpers/categories";
 import { useLanguage } from "../context/useLanguage";
 import { useAuth } from "../context/useAuth";
 import { useScores } from "../context/useScores";
-import { useQuiz } from "../context/useQuiz"; // ✅ NIEUW: context gebruiken
+import { useQuiz } from "../context/useQuiz";
 import PrimaryButton from "../components/buttons/PrimaryButton.jsx";
 
 const Quiz = () => {
