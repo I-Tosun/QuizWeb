@@ -1,36 +1,41 @@
 import "../assets/styles/Quiz.css";
-import { useParams, Link } from "react-router-dom";
 import { useEffect, useState, useMemo, useRef } from "react";
-
-import { fetchQuizQuestions } from "../services/triviaService";
+import { useParams } from "react-router-dom";
 import { shuffleAnswers, isCorrectAnswer, decodeText } from "../helpers/quizHelpers";
 import { saveScore } from "../services/scoreService";
-import { getUserFromToken } from "../services/authService";
 import { translateCategory } from "../helpers/categories";
-import { t } from "../helpers/translate";
+import { useLanguage } from "../context/useLanguage";
+import { useAuth } from "../context/useAuth";
+import { useScores } from "../context/useScores";
+import { useQuiz } from "../context/useQuiz"; // ✅ NIEUW: context gebruiken
 import PrimaryButton from "../components/buttons/PrimaryButton.jsx";
 
-//Interactive quizpage with timer, answers and score storage
 const Quiz = () => {
 
     const { category } = useParams();
     const normalizedCategory = category?.toLowerCase();
-    const username = getUserFromToken() || "Speler";
 
-    const [questions, setQuestions] = useState([]);
+    const { user } = useAuth();
+    const username = user?.username || "Speler";
+    const { t } = useLanguage();
+    const { setScores } = useScores();
+    const { questions } = useQuiz();
+
+    const storedQuestions = JSON.parse(localStorage.getItem("quizQuestions") || "[]");
+    const quizQuestions = questions.length ? questions : storedQuestions;
+
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
     const [score, setScore] = useState(0);
     const [selectedAnswer, setSelectedAnswer] = useState(null);
     const [quizFinished, setQuizFinished] = useState(false);
     const [timeLeft, setTimeLeft] = useState(20);
 
     const scoreStoredRef = useRef(false);
-    const currentQuestion = questions[currentQuestionIndex];
 
-    const percentage = questions.length
-        ? Math.round((score / questions.length) * 100)
+    const currentQuestion = quizQuestions[currentQuestionIndex];
+
+    const percentage = quizQuestions.length
+        ? Math.round((score / quizQuestions.length) * 100)
         : 0;
 
     const shuffledAnswers = useMemo(() => {
@@ -38,45 +43,15 @@ const Quiz = () => {
         return shuffleAnswers(currentQuestion);
     }, [currentQuestion]);
 
-    const resetQuiz = () => {
-        setScore(0);
-        setCurrentQuestionIndex(0);
-        setSelectedAnswer(null);
-        setQuizFinished(false);
-        setTimeLeft(20);
-        setError(null);
-        scoreStoredRef.current = false;
-    };
+    //Timer
 
-    // Get questions
-    useEffect(() => {
-        if (!normalizedCategory) return;
-
-        const loadQuestions = async () => {
-            setLoading(true);
-            resetQuiz();
-
-            try {
-                const results = await fetchQuizQuestions(normalizedCategory);
-                setQuestions(results || []);
-            } catch {
-                setError("Vragen konden niet worden geladen. Probeer opnieuw.");
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        void loadQuestions();
-    }, [normalizedCategory]);
-
-    // Timer
     useEffect(() => {
         if (quizFinished || !currentQuestion) return;
 
         const timer = setTimeout(() => {
             setTimeLeft(prev => {
                 if (prev <= 1) {
-                    if (currentQuestionIndex < questions.length - 1) {
+                    if (currentQuestionIndex < quizQuestions.length - 1) {
                         setCurrentQuestionIndex(i => i + 1);
                         setSelectedAnswer(null);
                         return 20;
@@ -90,63 +65,48 @@ const Quiz = () => {
         }, 1000);
 
         return () => clearTimeout(timer);
-    }, [timeLeft, currentQuestionIndex, questions.length, quizFinished, currentQuestion]);
+    }, [timeLeft, currentQuestionIndex, quizQuestions.length, quizFinished, currentQuestion]);
 
-    // Score save
+    // Save score
     useEffect(() => {
-        if (!quizFinished || scoreStoredRef.current || !questions.length) return;
+        if (!quizFinished || scoreStoredRef.current || !quizQuestions.length) return;
 
         const storeScore = async () => {
-            await saveScore({
+            const newScore = {
+                id: Date.now(),
                 name: username,
                 category: normalizedCategory,
                 score,
-                total: questions.length,
+                total: quizQuestions.length,
                 percentage,
                 date: new Date().toLocaleDateString()
-            });
+            };
+
+            await saveScore(newScore);
+
+            setScores(prev =>
+                [newScore, ...prev].sort((a, b) => b.score - a.score)
+            );
         };
 
         storeScore().catch(console.error);
         scoreStoredRef.current = true;
-    }, [quizFinished, score, questions.length, normalizedCategory, username, percentage]);
 
-    // Loading state
-    if (loading) {
+    }, [quizFinished, score, quizQuestions.length, normalizedCategory, username, percentage, setScores]);
+
+    //Refresh
+    if (!quizQuestions.length) {
         return (
             <section className="quiz_page">
                 <div className="quiz_container">
-                    <p className="quiz_loading">Vragen laden...</p>
+                    <p className="quiz_error">Geen quiz geladen.</p>
+                    <PrimaryButton to="/" label="Terug naar home"/>
                 </div>
             </section>
         );
     }
 
-    // Error state
-    if (error) {
-        return (
-            <section className="quiz_page">
-                <div className="quiz_container">
-                    <p className="quiz_error">{error}</p>
-                    <Link to="/" className="primary_btn">Terug naar home</Link>
-                </div>
-            </section>
-        );
-    }
-
-    // No questions found
-    if (!questions.length) {
-        return (
-            <section className="quiz_page">
-                <div className="quiz_container">
-                    <p className="quiz_error">Geen vragen gevonden voor deze categorie.</p>
-                    <Link to="/" className="primary_btn">Terug naar home</Link>
-                </div>
-            </section>
-        );
-    }
-
-    // Quiz finished
+    // Quiz afgerond
     if (quizFinished) {
         return (
             <section className="quiz_page">
@@ -155,7 +115,7 @@ const Quiz = () => {
 
                         <div className="finish_icon">🏁</div>
                         <h2>{t("quizFinished")}</h2>
-                        <p>{t("yourScore")}: {score} / {questions.length}</p>
+                        <p>{t("yourScore")}: {score} / {quizQuestions.length}</p>
                         <p>{t("percentage")}: {percentage}%</p>
 
                         <div className="quiz_finish_actions">
@@ -169,18 +129,21 @@ const Quiz = () => {
         );
     }
 
+    // Answers
     const handleAnswer = (answer) => {
-        if (selectedAnswer) return;
+        if (selectedAnswer || !currentQuestion) return;
+
         setSelectedAnswer(answer);
+
         if (isCorrectAnswer(answer, currentQuestion.correct_answer)) {
             setScore(prev => prev + 1);
         }
     };
 
     const nextQuestion = () => {
-        if (!selectedAnswer) return;
+        if (!selectedAnswer || !currentQuestion) return;
 
-        if (currentQuestionIndex < questions.length - 1) {
+        if (currentQuestionIndex < quizQuestions.length - 1) {
             setCurrentQuestionIndex(prev => prev + 1);
             setSelectedAnswer(null);
             setTimeLeft(20);
@@ -189,6 +152,8 @@ const Quiz = () => {
         }
     };
 
+
+    // Render
     return (
         <section className="quiz_page">
             <div className="quiz_container">
@@ -198,14 +163,16 @@ const Quiz = () => {
                     <span className={`quiz_timer ${timeLeft <= 5 ? "timer_warning" : ""}`}>
                         Timer: {timeLeft}s
                     </span>
-                    <span>{currentQuestionIndex + 1} / {questions.length}</span>
+                    <span>{currentQuestionIndex + 1} / {quizQuestions.length}</span>
                 </div>
 
                 <div className="quiz_content">
 
-                    <div className="quiz_question">
-                        <p>{decodeText(currentQuestion.question)}</p>
-                    </div>
+                    {currentQuestion && (
+                        <div className="quiz_question">
+                            <p>{decodeText(currentQuestion.question)}</p>
+                        </div>
+                    )}
 
                     <div className="quiz_answers">
                         {shuffledAnswers.map((answer, index) => {
