@@ -1,60 +1,65 @@
-//Message service - manage service via Novi Dynamic API
-const API_URL = "/api";
-const PROJECT_ID = import.meta.env.VITE_PROJECT_ID;
+import axios from "axios";
 
-const projectHeader = {
-    "Content-Type": "application/json",
-    "novi-education-project-id": PROJECT_ID
-};
+//Axios
+const API = axios.create({
+    baseURL: "/api",
+    headers: {
+        "Content-Type": "application/json",
+        "novi-education-project-id": import.meta.env.VITE_PROJECT_ID
+    }
+});
 
 // Send message
 export const sendMessage = async (name, email, message) => {
 
     const date = new Date().toLocaleDateString();
 
-    const response = await fetch(`${API_URL}/messages`, {
-        method: "POST",
-        headers: projectHeader,
-        body: JSON.stringify({ name, email, message, date })
-    });
-
-    if (!response.ok) throw new Error("Bericht versturen mislukt");
-
+    try {
+        await API.post("/messages", { name, email, message, date });
+        return true;
+    } catch (error) {
+        console.warn("API offline, fallback message gebruikt", error);
+    }
+    const messages = JSON.parse(localStorage.getItem("messages")) || [];
+    messages.push({ name, email, message, date });
+    localStorage.setItem("messages", JSON.stringify(messages));
     return true;
 };
 
 // Get message
 export const getMessages = async () => {
-
     const token = localStorage.getItem("token");
+    try {
+        const response = await API.get("/messages", {
+            headers: {
+                ...(token && { Authorization: `Bearer ${token}` })
+            }
+        });
+        return response.data;
 
-    const response = await fetch(`${API_URL}/messages`, {
-        method: "GET",
-        headers: {
-            ...projectHeader,
-            "Authorization": `Bearer ${token}`
-        }
-    });
-
-    if (!response.ok) throw new Error("Berichten ophalen mislukt");
-
-    return await response.json();
+    } catch (error) {
+        console.warn("API offline, fallback messages gebruikt", error);
+    }
+    const messages = localStorage.getItem("messages");
+    return messages ? JSON.parse(messages) : [];
 };
+
 
 // Delete message
 export const deleteMessage = async (id) => {
-
     const token = localStorage.getItem("token");
-
-    const response = await fetch(`${API_URL}/messages/${id}`, {
-        method: "DELETE",
-        headers: {
-            ...projectHeader,
-            "Authorization": `Bearer ${token}`
-        }
-    });
-
-    if (!response.ok) throw new Error("Bericht verwijderen mislukt");
-
+    try {
+        await API.delete(`/messages/${id}`, {
+            headers: {
+                ...(token && { "Authorization": `Bearer ${token}` })
+            }
+        });
+        return true;
+    } catch (error) {
+        console.warn("API offline, fallback delete gebruikt", error);
+    }
+    const messages = JSON.parse(localStorage.getItem("messages")) || [];
+    const updated = messages.filter((_, index) => index !== id);
+    localStorage.setItem("messages", JSON.stringify(updated));
     return true;
 };

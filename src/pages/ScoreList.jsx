@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
 import "../assets/styles/ScoreList.css";
 import ScoreTable from "../components/ScoreTable";
-import { t } from "../helpers/translate";
-import useScores from "../hooks/useScores";
+import { useLanguage } from "../context/useLanguage";
+import { useScores } from "../context/useScores.js";
 
 //Score list shows scores sorted bij high score
 const ScoreList = () => {
 
+    const { t } = useLanguage();
     const { scores, loading, error } = useScores();
 
     return (

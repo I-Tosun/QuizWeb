@@ -4,7 +4,6 @@ import { getMessages, deleteMessage } from "../../services/messageService";
 import DeleteButton from "../../components/buttons/DeleteButton.jsx";
 import BackButton from "../../components/buttons/BackButton.jsx";
 
-// Management of contact messages via novi dynamic app
 
 const ManageMessages = () => {
 
@@ -13,26 +12,33 @@ const ManageMessages = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
+        let cancelled = false;
         const loadMessages = async () => {
             try {
                 const data = await getMessages();
-                setMessages(data);
+                if (!cancelled) setMessages(data);
             } catch {
-                setError("Berichten konden niet worden geladen.");
+                if (!cancelled) setError("Berichten konden niet worden geladen.");
             } finally {
-                setLoading(false);
+                if (!cancelled) setLoading(false);
             }
         };
 
         void loadMessages();
-    }, []);
 
+        return () => {
+            cancelled = true;
+        };
+
+    }, []);
     const handleDelete = async (id) => {
+
         if (!window.confirm("Bericht verwijderen?")) return;
 
         try {
             await deleteMessage(id);
             setMessages(prev => prev.filter((m) => m.id !== id));
+
         } catch {
             alert("Verwijderen mislukt");
         }
@@ -48,7 +54,6 @@ const ManageMessages = () => {
                 </div>
 
                 {loading && <p>Berichten laden...</p>}
-
                 {error && <p style={{ color: "#d33" }}>{error}</p>}
 
                 {!loading && !error && messages.length === 0 && (

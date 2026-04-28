@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 import "../../assets/styles/Admin.css";
 import { deleteScore } from "../../services/scoreService";
 import ScoreTable from "../../components/ScoreTable";
-import useScores from "../../hooks/useScores";
+import { useScores } from "../../context/useScores";
 
-// Management of scores via Novi Dynamic API
+// Management of scores via backend
 const ManageScores = () => {
 
     const { scores, setScores, loading, error } = useScores();

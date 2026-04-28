@@ -1,33 +1,28 @@
 import { useState } from "react";
 import Modal from "../components/Modal";
 import "../assets/styles/Auth.css";
-import { loginUser } from "../services/authService";
+import { useAuth } from "../context/useAuth.js";
 
 const Login = ({ onClose }) => {
 
+    const { login } = useAuth();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
 
-            await loginUser(username, password);
-
+            await login(username, password);
             setErrorMessage("");
-
             alert("Login succesvol");
-
             onClose();
-
         } catch (error) {
-
             console.error(error);
-
             setErrorMessage("Login mislukt. Controleer email en wachtwoord.");
-
         }
     };
 

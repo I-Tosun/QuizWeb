@@ -1,9 +1,11 @@
 import { Navigate } from "react-router-dom";
-import { isAdmin } from "../services/authService";
+import { useAuth } from "../context/useAuth.js";
 
-//PrivateRoute protects admin page form unlogged users
+//PrivateRoute protects admin page
 const PrivateRoute = ({ children }) => {
-    if (!isAdmin()) {
+    const { isAdmin } = useAuth();
+
+    if (!isAdmin) {
         return <Navigate to="/" replace />;
     }
     return children;

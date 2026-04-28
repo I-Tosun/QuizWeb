@@ -1,9 +1,10 @@
-import { t } from "../helpers/translate";
+import { useLanguage } from "../context/useLanguage";
 import DeleteButton from "./buttons/DeleteButton.jsx";
-
 
 //Score table reusable component for displaying scores
 const ScoreTable = ({ scores, showDelete = false, onDelete }) => {
+
+    const { t } = useLanguage();
 
     const tableClass = showDelete
         ? "score_table admin_grid"

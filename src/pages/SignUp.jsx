@@ -1,10 +1,11 @@
 import { useState } from "react";
 import Modal from "../components/Modal";
 import "../assets/styles/Auth.css";
-import { registerUser } from "../services/authService";
+import { useAuth } from "../context/useAuth.js";
 
 const SignUp = ({ onClose }) => {
 
+    const { register } = useAuth();
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -22,7 +23,7 @@ const SignUp = ({ onClose }) => {
 
         try {
 
-            await registerUser(username, email, password);
+            await register(username, email, password);
 
             setErrorMessage("");
 

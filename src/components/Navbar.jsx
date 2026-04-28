@@ -6,73 +6,41 @@ import logo from "../assets/images/logo.png";
 
 import { menuItems } from "../helpers/menuItems";
 import { languages } from "../helpers/languages";
-import { t } from "../helpers/translate";
-
-import {
-    getToken,
-    logoutUser,
-    getUserFromToken,
-    isAdmin
-} from "../services/authService";
+import { useLanguage } from "../context/useLanguage";
+import { useAuth } from "../context/useAuth.js";
 
 const Navbar = ({ openLogin, openSignUp }) => {
 
     const navigate = useNavigate();
+    const { language, changeLanguage, t } = useLanguage();
+    const { user, isAdmin, logout } = useAuth(); // ← NIEUW: user, isAdmin en logout uit Context
 
     const [menuOpen, setMenuOpen] = useState(false);
     const [languageOpen, setLanguageOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
 
-    const [language, setLanguage] = useState(
-        localStorage.getItem("language") || "NL"
-    );
-
-    const token = getToken();
-    const username = getUserFromToken();
-
-    // Ref for click outside
     const menuRef = useRef(null);
     const langRef = useRef(null);
 
-    // click outside close
     useEffect(() => {
         const handleClick = (e) => {
-
             if (menuRef.current && !menuRef.current.contains(e.target)) {
                 setMenuOpen(false);
             }
-
             if (langRef.current && !langRef.current.contains(e.target)) {
                 setLanguageOpen(false);
             }
-
         };
 
         document.addEventListener("mousedown", handleClick);
-
-        return () => {
-            document.removeEventListener("mousedown", handleClick);
-        };
+        return () => document.removeEventListener("mousedown", handleClick);
     }, []);
 
-    // Language switch
-    const changeLanguage = (langCode) => {
-        setLanguage(langCode);
-        localStorage.setItem("language", langCode);
-        setLanguageOpen(false);
-        window.location.reload();
-    };
-
-    // Search
     const handleSearch = (e) => {
-
         if (e.key !== "Enter") return;
 
         const value = searchTerm.toLowerCase().trim();
-
-        const match = menuItems.find(item =>
-            item.path.includes(value)
-        );
+        const match = menuItems.find(item => item.path.includes(value));
 
         if (match) {
             navigate(match.path);
@@ -104,7 +72,6 @@ const Navbar = ({ openLogin, openSignUp }) => {
 
                     {menuOpen && (
                         <ul className="dropdown">
-
                             {menuItems.map((item) => (
                                 <li key={item.path}>
                                     <Link
@@ -115,7 +82,7 @@ const Navbar = ({ openLogin, openSignUp }) => {
                                 </li>
                             ))}
 
-                            {isAdmin() && (
+                            {isAdmin && ( // GEWIJZIGD: isAdmin is nu boolean uit Context
                                 <li>
                                     <Link
                                         to="/admin"
@@ -124,14 +91,12 @@ const Navbar = ({ openLogin, openSignUp }) => {
                                     </Link>
                                 </li>
                             )}
-
                         </ul>
                     )}
 
                 </div>
 
             </div>
-
 
             {/* Search */}
             <input
@@ -142,11 +107,10 @@ const Navbar = ({ openLogin, openSignUp }) => {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 onKeyDown={handleSearch}/>
 
-
             {/* Right */}
             <div className="navbar_right">
 
-                {!token ? (
+                {!user ? ( // user uit Context ipv token
                     <>
                         <button
                             className="nav-text"
@@ -162,20 +126,18 @@ const Navbar = ({ openLogin, openSignUp }) => {
                     </>
                 ) : (
                     <div className="user_section">
-
                         <span className="username">
-                            {t("hello")} {username}
+                            {t("hello")} {user.username} {/*  user.username uit Context */}
                         </span>
 
                         <button
                             className="nav-text"
                             onClick={() => {
-                                logoutUser();
-                                window.location.reload();
+                                logout();
+                                navigate("/");
                             }}>
                             {t("logout")}
                         </button>
-
                     </div>
                 )}
 
@@ -191,15 +153,16 @@ const Navbar = ({ openLogin, openSignUp }) => {
 
                     {languageOpen && (
                         <ul className="dropdown">
-
                             {languages.map((lang) => (
                                 <li
                                     key={lang.code}
-                                    onClick={() => changeLanguage(lang.code)}>
+                                    onClick={() => {
+                                        changeLanguage(lang.code);
+                                        setLanguageOpen(false);
+                                    }}>
                                     {lang.label}
                                 </li>
                             ))}
-
                         </ul>
                     )}
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import Layout from "./layout/Layout.jsx";
 import PrivateRoute from "./components/PrivateRoute.jsx";
@@ -29,7 +29,6 @@ function App() {
             {showLogin && <Login onClose={() => setShowLogin(false)} />}
             {showSignUp && <SignUp onClose={() => setShowSignUp(false)} />}
 
-            <Router>
                 <Layout
                     openLogin={() => setShowLogin(true)}
                     openSignUp={() => setShowSignUp(true)}>
@@ -55,7 +54,6 @@ function App() {
 
                     </Routes>
                 </Layout>
-            </Router>
         </>
     );
 }

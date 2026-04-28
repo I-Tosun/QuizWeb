@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "../../assets/styles/Admin.css";
-import { getToken } from "../../services/authService";
+
 import DeleteButton from "../../components/buttons/DeleteButton.jsx";
 import BackButton from "../../components/buttons/BackButton.jsx";
 
@@ -25,7 +25,7 @@ const ManageUsers = () => {
     useEffect(() => {
         const loadUsers = async () => {
             try {
-                const token = getToken();
+                const token = localStorage.getItem("token");
                 const response = await fetch(`${API_URL}/users`, {
                     method: "GET",
                     headers: {
@@ -55,7 +55,7 @@ const ManageUsers = () => {
         if (!window.confirm("Weet je zeker dat je deze gebruiker wilt verwijderen?")) return;
 
         try {
-            const token = getToken();
+            const token = localStorage.getItem("token");
             const response = await fetch(`${API_URL}/users/${id}`, {
                 method: "DELETE",
                 headers: {

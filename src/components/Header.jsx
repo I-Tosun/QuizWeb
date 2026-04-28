@@ -1,7 +1,8 @@
 import "../assets/styles/Header.css";
-import { t } from "../helpers/translate";
+import { useLanguage } from "../context/useLanguage";
 
 const Header = () => {
+    const { t } = useLanguage();
     return (
         <header className="header">
             <div className="header_container">
