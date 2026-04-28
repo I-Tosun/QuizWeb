@@ -1,18 +1,16 @@
-import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
-import { t } from "../helpers/translate";
+import { useLanguage } from "../context/useLanguage";
 import "../assets/styles/QuizCard.css";
 
-const QuizCard = ({ icon, titleKey, path }) => {
+const QuizCard = ({ icon, titleKey, onClick }) => {
+    const { t } = useLanguage();
 
     return (
-
-        <Link to={path} className="quiz_card">
+        <div className="quiz_card" onClick={onClick}>
             <Icon icon={icon} width="32" />
             <h3>{t(titleKey)}</h3>
-        </Link>
+        </div>
     );
 };
 
 export default QuizCard;
-
