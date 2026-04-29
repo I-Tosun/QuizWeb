@@ -1,26 +1,44 @@
-import { useState } from "react";
 import "../assets/styles/Contact.css";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+
+import ErrorMessage from "../components/ui/ErrorMessage";
+import SuccessMessage from "../components/ui/SuccessMessage";
+import LoadingSpinner from "../components/ui/LoadingSpinner";
 import { sendMessage } from "../services/messageService";
 
-//Contact form linked to the Novi Dynamic API
 const Contact = () => {
 
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [message, setMessage] = useState("");
-    const [status, setStatus] = useState("");
+    // react-hook-form setup
+    const {
+        register,
+        handleSubmit,
+        reset,
+        formState: { errors }
+    } = useForm();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const [success, setSuccess] = useState(null);
+
+    // submit handler
+    const onSubmit = async (data) => {
+
+        setError(null);
+        setSuccess(null);
+        setLoading(true);
 
         try {
-            await sendMessage(name, email, message);
-            setStatus("success");
-            setName("");
-            setEmail("");
-            setMessage("");
-        } catch {
-            setStatus("error");
+            await sendMessage(data.name, data.email, data.message);
+
+            setSuccess("Bericht succesvol verzonden!");
+            reset(); // form leegmaken
+
+        } catch (err) {
+            console.error(err);
+            setError("Verzenden mislukt. Probeer later opnieuw.");
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -28,56 +46,67 @@ const Contact = () => {
         <section className="contact_page">
             <div className="contact_container">
 
-                <header className="contact_header">
-                    <h1>Neem contact op met ons</h1>
-                    <p>Gebruik het onderstaande formulier om ons een bericht te sturen.</p>
-                </header>
+                <h1>Contact</h1>
 
-                <form className="contact_form" onSubmit={handleSubmit}>
+                <p className="contact_intro">
+                    Heeft u vragen, feedback of opmerkingen? Vul het onderstaande contactformulier in en wij nemen zo snel mogelijk contact met u op.
+                </p>
+                <ErrorMessage message={error} />
+                <SuccessMessage message={success} />
+                {loading && <LoadingSpinner />}
 
-                    <div className="form_group">
-                        <label htmlFor="name">Uw naam</label>
-                        <input
-                            type="text"
-                            id="name"
-                            placeholder="Uw naam"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            required/>
-                    </div>
+                <form className="contact_form" onSubmit={handleSubmit(onSubmit)}>
 
-                    <div className="form_group">
-                        <label htmlFor="email">Uw e-mail</label>
-                        <input
-                            type="email"
-                            id="email"
-                            placeholder="Uw e-mail"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required/>
-                    </div>
-
-                    <div className="form_group">
-                        <label htmlFor="message">Reactie voor ons</label>
-                        <textarea
-                            id="message"
-                            placeholder="Schrijf hier uw bericht..."
-                            rows="5"
-                            value={message}
-                            onChange={(e) => setMessage(e.target.value)}
-                            required/>
-                    </div>
-
-                    {status === "success" && (
-                        <p className="contact_success">Bericht succesvol verstuurd!</p>
+                    {/* Naam */}
+                    <label>Naam</label>
+                    <input
+                        type="text"
+                        {...register("name", {
+                            required: "Naam is verplicht",
+                            minLength: {
+                                value: 2,
+                                message: "Minimaal 2 karakters"
+                            }
+                        })}/>
+                    {errors.name && (
+                        <p className="auth_error">{errors.name.message}</p>
                     )}
 
-                    {status === "error" && (
-                        <p className="contact_error">Versturen mislukt, probeer opnieuw.</p>
+                    {/* Email */}
+                    <label>Email</label>
+                    <input
+                        type="email"
+                        {...register("email", {
+                            required: "Email is verplicht",
+                            pattern: {
+                                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                                message: "Ongeldig emailadres"
+                            }
+                        })}/>
+                    {errors.email && (
+                        <p className="auth_error">{errors.email.message}</p>
                     )}
 
-                    <button type="submit" className="contact_button">
-                        Verstuur bericht
+                    {/* Bericht */}
+                    <label>Bericht</label>
+                    <textarea
+                        rows="5"
+                        {...register("message", {
+                            required: "Bericht is verplicht",
+                            minLength: {
+                                value: 10,
+                                message: "Minimaal 10 karakters"
+                            }
+                        })}/>
+                    {errors.message && (
+                        <p className="auth_error">{errors.message.message}</p>
+                    )}
+
+                    <button
+                        className="primary_btn"
+                        type="submit"
+                        disabled={loading}>
+                        {loading ? "Versturen..." : "Verstuur bericht"}
                     </button>
 
                 </form>

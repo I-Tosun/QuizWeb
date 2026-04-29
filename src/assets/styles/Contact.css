@@ -76,6 +76,11 @@
 .contact_button:hover {
     opacity: 0.85;
 }
+.contact_intro {
+    margin-bottom: 20px;
+    color: #555;
+    line-height: 1.5;
+}
 
 /* Feedback */
 .contact_success {

@@ -13,7 +13,6 @@ const API = axios.create({
 export const sendMessage = async (name, email, message) => {
 
     const date = new Date().toLocaleDateString();
-
     try {
         await API.post("/messages", { name, email, message, date });
         return true;
@@ -21,7 +20,13 @@ export const sendMessage = async (name, email, message) => {
         console.warn("API offline, fallback message gebruikt", error);
     }
     const messages = JSON.parse(localStorage.getItem("messages")) || [];
-    messages.push({ name, email, message, date });
+    const newMessage = {
+        id: Date.now(),
+        name,
+        email,
+        message,
+        date};
+    messages.push(newMessage);
     localStorage.setItem("messages", JSON.stringify(messages));
     return true;
 };
@@ -44,14 +49,13 @@ export const getMessages = async () => {
     return messages ? JSON.parse(messages) : [];
 };
 
-
 // Delete message
 export const deleteMessage = async (id) => {
     const token = localStorage.getItem("token");
     try {
         await API.delete(`/messages/${id}`, {
             headers: {
-                ...(token && { "Authorization": `Bearer ${token}` })
+                ...(token && { Authorization: `Bearer ${token}` })
             }
         });
         return true;
@@ -59,7 +63,8 @@ export const deleteMessage = async (id) => {
         console.warn("API offline, fallback delete gebruikt", error);
     }
     const messages = JSON.parse(localStorage.getItem("messages")) || [];
-    const updated = messages.filter((_, index) => index !== id);
+    const updated = messages.filter((msg) => msg.id !== id);
     localStorage.setItem("messages", JSON.stringify(updated));
+
     return true;
 };
