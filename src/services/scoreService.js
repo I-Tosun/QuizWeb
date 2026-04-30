@@ -79,7 +79,7 @@ export const deleteScore = async (id) => {
 
     // Fallback localStorage
     const scores = JSON.parse(localStorage.getItem("scores")) || [];
-    const updated = scores.filter((_, i) => i !== id);
+    const updated = scores.filter(score => score.id !== id);
     localStorage.setItem("scores", JSON.stringify(updated));
 
     return updated;

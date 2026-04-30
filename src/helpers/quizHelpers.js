@@ -1,5 +1,7 @@
 // Solve HTML characters as & quote
 export const decodeText = (text) => {
+    if (!text) return "";
+
     const txt = document.createElement("textarea");
     txt.innerHTML = text;
     return txt.value;

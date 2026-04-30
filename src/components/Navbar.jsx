@@ -127,7 +127,7 @@ const Navbar = ({ openLogin, openSignUp }) => {
                 ) : (
                     <div className="user_section">
                         <span className="username">
-                            {t("hello")} {user.username} {/*  user.username uit Context */}
+                            {t("hello")} {user?.username || "User"}
                         </span>
 
                         <button

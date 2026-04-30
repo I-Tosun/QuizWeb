@@ -21,31 +21,55 @@ function AuthContextProvider({ children }) {
             return {
                 user: { username, role, token },
                 status: "done",
+                error: null,
             };
         }
 
         return {
             user: null,
             status: "done",
+            error: null,
         };
     });
 
     //  Login
     async function login(email, password) {
-        const token = await loginUser(email, password);
-
-        const username = getUserFromToken();
-        const role = getUserRole();
 
         setAuthState({
-            user: { username, role, token },
-            status: "done",
+            user: authState.user,
+            status: "loading",
+            error: null,
         });
+        try {
+            const token = await loginUser(email, password);
+
+            const username = getUserFromToken();
+            const role = getUserRole();
+
+            setAuthState({
+                user: { username, role, token },
+                status: "done",
+                error: null
+            });
+
+        } catch (error) {
+
+            setAuthState({
+                user: null,
+                status: "error",
+                error: error.message
+            });
+        }
     }
 
     //  Register
     async function register(username, email, password) {
-        await registerUser(username, email, password);
+        try{
+            await registerUser(username, email, password);
+        } catch (error) {
+            console.error("Register error:", error);
+            throw error;
+        }
     }
 
     //  Logout
@@ -55,6 +79,7 @@ function AuthContextProvider({ children }) {
         setAuthState({
             user: null,
             status: "done",
+            error: null
         });
     }
 
@@ -62,6 +87,7 @@ function AuthContextProvider({ children }) {
     const value = {
         user: authState.user,
         status: authState.status,
+        error: authState.error,
         login,
         register,
         logout,

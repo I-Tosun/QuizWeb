@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useParams } from "react-router-dom";
 
 import Layout from "./layout/Layout.jsx";
-import PrivateRoute from "./components/PrivateRoute.jsx";
+import PrivateRoute from "./components/privateRoute.jsx";
 
 import Home from "./pages/Home.jsx";
 import Quiz from "./pages/Quiz.jsx";
@@ -18,7 +18,14 @@ import ManageScores from "./pages/admin/ManageScores.jsx";
 import ManageUsers from "./pages/admin/ManageUsers.jsx";
 import ManageMessages from "./pages/admin/ManageMessages.jsx";
 
-//Main component with routing and authentication modals
+
+function QuizWrapper() {
+    const { category } = useParams();
+
+    return <Quiz key={category} />;
+}
+
+// Main component with routing and authentication modals
 function App() {
 
     const [showLogin, setShowLogin] = useState(false);
@@ -29,31 +36,58 @@ function App() {
             {showLogin && <Login onClose={() => setShowLogin(false)} />}
             {showSignUp && <SignUp onClose={() => setShowSignUp(false)} />}
 
-                <Layout
-                    openLogin={() => setShowLogin(true)}
-                    openSignUp={() => setShowSignUp(true)}>
-                    <Routes>
+            <Layout
+                openLogin={() => setShowLogin(true)}
+                openSignUp={() => setShowSignUp(true)}>
 
-                        {/* Public routes */}
-                        <Route path="/" element={<Home />} />
-                        <Route path="/quiz/:category" element={<Quiz />} />
-                        <Route path="/scores" element={<ScoreList />} />
-                        <Route path="/contact" element={<Contact />} />
-                        <Route path="/about" element={<AboutUs />} />
-                        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                <Routes>
 
-                        {/* Admin routes */}
-                        <Route path="/admin" element={
-                            <PrivateRoute><AdminDashboard /></PrivateRoute>} />
-                        <Route path="/admin/scores" element={
-                            <PrivateRoute><ManageScores /></PrivateRoute>} />
-                        <Route path="/admin/users" element={
-                            <PrivateRoute><ManageUsers /></PrivateRoute>} />
-                        <Route path="/admin/messages" element={
-                            <PrivateRoute><ManageMessages /></PrivateRoute>} />
+                    {/* Public routes */}
+                    <Route path="/" element={<Home />} />
 
-                    </Routes>
-                </Layout>
+                    {/*  Quiz wrapper (fix state reset) */}
+                    <Route path="/quiz/:category" element={<QuizWrapper />} />
+
+                    <Route path="/scores" element={<ScoreList />} />
+                    <Route path="/contact" element={<Contact />} />
+                    <Route path="/about" element={<AboutUs />} />
+                    <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+
+                    {/* Admin routes */}
+                    <Route
+                        path="/admin"
+                        element={
+                            <PrivateRoute>
+                                <AdminDashboard />
+                            </PrivateRoute>
+                        }/>
+
+                    <Route
+                        path="/admin/scores"
+                        element={
+                            <PrivateRoute>
+                                <ManageScores />
+                            </PrivateRoute>
+                        }/>
+
+                    <Route
+                        path="/admin/users"
+                        element={
+                            <PrivateRoute>
+                                <ManageUsers />
+                            </PrivateRoute>
+                        }/>
+
+                    <Route
+                        path="/admin/messages"
+                        element={
+                            <PrivateRoute>
+                                <ManageMessages />
+                            </PrivateRoute>
+                        }/>
+
+                </Routes>
+            </Layout>
         </>
     );
 }

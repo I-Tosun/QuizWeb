@@ -10,22 +10,37 @@ const API = axios.create({
 });
 
 
-// LOGIN (ALLEEN API - GEEN FALLBACK)
-export const loginUser = async (username, password) => {
+// Login
+export const loginUser = async (email, password) => {
     try {
         const response = await API.post("/login", {
-            email: username,
+            email,
             password
         });
+
         const token = response.data.token;
-        // JWT opslaan
+
+        // Token opslaan
         localStorage.setItem("token", token);
 
-        console.log("API TOKEN:", token);
+        // Juiste screenname ophalen
+        const savedName = localStorage.getItem(`screenname_${email}`);
+
+        // fallback naar email als geen naam bestaat
+        const screenname = savedName || email;
+
+        localStorage.setItem("screenname", screenname);
+
         return token;
+
     } catch (error) {
-        console.error(" Login mislukt :", error);
-        throw new Error("Login mislukt - controleer je gegevens of API");
+        console.error("Login mislukt:", error);
+
+        const message =
+            error.response?.data?.message ||
+            "Login mislukt - controleer je gegevens";
+
+        throw new Error(message);
     }
 };
 
@@ -35,7 +50,7 @@ export const registerUser = async (username, email, password) => {
     try {
         await API.post("/users", { email, password });
 
-        localStorage.setItem("screenname", username);
+        localStorage.setItem(`screenname_${email}`, username);
 
         return true;
 

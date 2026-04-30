@@ -13,13 +13,13 @@ createRoot(document.getElementById("root")).render(
     <StrictMode>
         <Router>
             <AuthContextProvider>
-                <QuizProvider>
-                    <ScoreContextProvider>
-                        <LanguageContextProvider>
+                <LanguageContextProvider>
+                    <QuizProvider>
+                        <ScoreContextProvider>
                             <App />
-                        </LanguageContextProvider>
-                    </ScoreContextProvider>
-                </QuizProvider>
+                        </ScoreContextProvider>
+                    </QuizProvider>
+                </LanguageContextProvider>
             </AuthContextProvider>
         </Router>
     </StrictMode>
